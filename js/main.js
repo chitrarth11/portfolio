@@ -15,6 +15,7 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
   let w, h, dpr;
   let stars = [];
   let shooting = [];
+  let planets = [];
   const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999 };
 
   const LAYERS = [
@@ -36,6 +37,13 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
   }
 
   function seed() {
+    const base = Math.min(w, h);
+    planets = [
+      { fx: 0.09, fy: 0.20, r: base * 0.05 + 16, c: [139, 92, 246], ring: true,  parallax: 26, phase: 0 },
+      { fx: 0.90, fy: 0.12, r: base * 0.02 + 8,  c: [34, 211, 238], ring: false, parallax: 14, phase: 2 },
+      { fx: 0.84, fy: 0.70, r: base * 0.03 + 12, c: [217, 70, 239], ring: false, parallax: 34, phase: 4, moon: true },
+    ];
+
     stars = [];
     const area = w * h;
     LAYERS.forEach((layer, li) => {
@@ -65,6 +73,71 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
     });
   }
 
+  function drawPlanet(p, nx, ny) {
+    const bob = prefersReducedMotion ? 0 : Math.sin(tick * 0.005 + p.phase) * 5;
+    const px = p.fx * w - nx * p.parallax;
+    const py = p.fy * h - ny * p.parallax + bob;
+
+    const g = ctx.createRadialGradient(px - p.r * 0.35, py - p.r * 0.35, p.r * 0.1, px, py, p.r);
+    g.addColorStop(0, `rgba(${p.c[0]}, ${p.c[1]}, ${p.c[2]}, 0.5)`);
+    g.addColorStop(0.7, `rgba(${p.c[0]}, ${p.c[1]}, ${p.c[2]}, 0.2)`);
+    g.addColorStop(1, 'rgba(10, 13, 32, 0)');
+    ctx.beginPath();
+    ctx.arc(px, py, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    if (p.ring) {
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(-0.45);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, p.r * 1.7, p.r * 0.5, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${p.c[0]}, ${p.c[1]}, ${p.c[2]}, 0.35)`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(0, 0, p.r * 1.45, p.r * 0.4, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(205, 214, 255, 0.18)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    if (p.moon) {
+      const a = (prefersReducedMotion ? 0 : tick * 0.008) + p.phase;
+      const mx = px + Math.cos(a) * p.r * 1.9;
+      const my = py + Math.sin(a) * p.r * 0.6;
+      ctx.beginPath();
+      ctx.arc(mx, my, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(205, 214, 255, 0.8)';
+      ctx.fill();
+    }
+  }
+
+  function drawGalaxy(nx, ny) {
+    const gx = 0.16 * w - nx * 10;
+    const gy = 0.80 * h - ny * 10;
+    ctx.save();
+    ctx.translate(gx, gy);
+    ctx.rotate(0.6 + (prefersReducedMotion ? 0 : tick * 0.0004));
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 46 - i * 12, 16 - i * 4, i * 0.5, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(217, 70, 239, ${0.09 + i * 0.05})`;
+      ctx.lineWidth = 4 - i;
+      ctx.stroke();
+    }
+    const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, 14);
+    cg.addColorStop(0, 'rgba(232, 234, 246, 0.45)');
+    cg.addColorStop(1, 'rgba(232, 234, 246, 0)');
+    ctx.beginPath();
+    ctx.arc(0, 0, 14, 0, Math.PI * 2);
+    ctx.fillStyle = cg;
+    ctx.fill();
+    ctx.restore();
+  }
+
   let tick = 0;
   function frame() {
     tick++;
@@ -76,6 +149,9 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
     const cx = w / 2, cy = h / 2;
     const nx = mouse.tx > -999 ? (mouse.x - cx) / cx : 0;
     const ny = mouse.ty > -999 ? (mouse.y - cy) / cy : 0;
+
+    drawGalaxy(nx, ny);
+    for (const p of planets) drawPlanet(p, nx, ny);
 
     const near = [];
 
@@ -201,8 +277,8 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
   });
 
   (function loop() {
-    rx += (dx - rx) * 0.16;
-    ry += (dy - ry) * 0.16;
+    rx += (dx - rx) * 0.38;
+    ry += (dy - ry) * 0.38;
     dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
     ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
     requestAnimationFrame(loop);
@@ -222,6 +298,7 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
   document.querySelectorAll('.tilt').forEach((card) => {
     const max = parseFloat(card.dataset.tiltMax) || 8;
     card.addEventListener('pointermove', (e) => {
+      if (window.innerWidth <= 820) return; // deck/carousel owns transforms on small screens
       const r = card.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width;
       const py = (e.clientY - r.top) / r.height;
@@ -283,7 +360,7 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
     'full-stack web apps.',
     'React + Node.js portals.',
     'responsive interfaces.',
-    'MongoDB-backed pipelines.',
+    'SQL & MongoDB data pipelines.',
     'fast, accessible UIs.',
   ];
   if (prefersReducedMotion) {
@@ -372,4 +449,74 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
     });
   }, { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach((s) => activeObs.observe(s));
+})();
+
+/* ------------------------------------------------------------
+   10. Skills deck — on small screens the cards overlap and the
+       centered card rises above its neighbours while swiping
+   ------------------------------------------------------------ */
+(() => {
+  const grid = document.querySelector('.skills-grid');
+  if (!grid) return;
+  const cards = [...grid.children];
+  const mq = window.matchMedia('(max-width: 820px)');
+
+  function update() {
+    if (!mq.matches) {
+      cards.forEach((c) => { c.style.transform = ''; c.style.zIndex = ''; });
+      return;
+    }
+    const rect = grid.getBoundingClientRect();
+    const center = rect.left + rect.width / 2;
+    cards.forEach((c) => {
+      const r = c.getBoundingClientRect();
+      const d = Math.abs((r.left + r.width / 2 - center) / rect.width);
+      const scale = 1 - Math.min(d * 0.35, 0.18);
+      c.style.transform = `scale(${scale})`;
+      c.style.zIndex = String(100 - Math.round(d * 100));
+    });
+  }
+
+  grid.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  if (mq.addEventListener) mq.addEventListener('change', update);
+  update();
+})();
+
+/* ------------------------------------------------------------
+   11. Project media sliders — code snippet ⇄ live screenshot
+       via arrows, dots, or swipe
+   ------------------------------------------------------------ */
+(() => {
+  document.querySelectorAll('.code-window').forEach((win) => {
+    const slides = win.querySelector('.slides');
+    if (!slides) return;
+    const dots = [...win.querySelectorAll('.slide-dot')];
+    const label = win.querySelector('.code-file');
+    let labels = [];
+    try { labels = JSON.parse(label.dataset.labels || '[]'); } catch (e) { /* keep static label */ }
+    const n = slides.children.length;
+    let i = 0;
+
+    function go(idx) {
+      i = ((idx % n) + n) % n;
+      slides.style.transform = `translateX(-${i * 100}%)`;
+      dots.forEach((d, k) => d.classList.toggle('active', k === i));
+      if (labels[i]) label.textContent = labels[i];
+    }
+
+    win.querySelector('.slide-prev').addEventListener('click', () => go(i - 1));
+    win.querySelector('.slide-next').addEventListener('click', () => go(i + 1));
+    dots.forEach((d, k) => d.addEventListener('click', () => go(k)));
+
+    let x0 = null, y0 = null;
+    slides.addEventListener('pointerdown', (e) => { x0 = e.clientX; y0 = e.clientY; }, { passive: true });
+    slides.addEventListener('pointerup', (e) => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0;
+      const dy = e.clientY - y0;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(i + (dx < 0 ? 1 : -1));
+      x0 = y0 = null;
+    }, { passive: true });
+  });
 })();

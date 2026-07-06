@@ -64,7 +64,8 @@
         </div>
       </div>
       <a href="#about" class="scroll-hint" aria-label="Scroll down">
-        <span class="mouse"><span class="wheel"></span></span>
+        <span class="chev"></span>
+        <span class="chev"></span>
       </a>
     </section>
 
@@ -149,14 +150,23 @@
           </div>
         </div>
       </div>
-      <div class="soft-skills reveal">
-        <span class="chip">Communication</span>
-        <span class="chip">Collaborative Teamwork</span>
-        <span class="chip">Adaptability</span>
-        <span class="chip">Time Management</span>
-        <span class="chip">Flexibility</span>
-        <span class="chip">Leadership</span>
-        <span class="chip">Attention to Detail</span>
+      <div class="soft-marquee reveal" aria-label="Soft skills">
+        <div class="soft-track">
+          <span>Communication</span><span class="star">✦</span>
+          <span>Collaborative Teamwork</span><span class="star">✦</span>
+          <span>Adaptability</span><span class="star">✦</span>
+          <span>Time Management</span><span class="star">✦</span>
+          <span>Flexibility</span><span class="star">✦</span>
+          <span>Leadership</span><span class="star">✦</span>
+          <span>Attention to Detail</span><span class="star">✦</span>
+          <span>Communication</span><span class="star">✦</span>
+          <span>Collaborative Teamwork</span><span class="star">✦</span>
+          <span>Adaptability</span><span class="star">✦</span>
+          <span>Time Management</span><span class="star">✦</span>
+          <span>Flexibility</span><span class="star">✦</span>
+          <span>Leadership</span><span class="star">✦</span>
+          <span>Attention to Detail</span><span class="star">✦</span>
+        </div>
       </div>
     </section>
 
@@ -240,7 +250,6 @@
         <!-- SanBrew -->
         <article class="project reveal">
           <div class="project-info">
-            <p class="project-date">2024-01</p>
             <h3>SanBrew — Best Cafe in the Town</h3>
             <p>
               Responsive, visually engaging cafe website with an interactive menu and smooth
@@ -261,8 +270,11 @@
           <div class="code-window tilt" data-tilt-max="6">
             <div class="code-bar">
               <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-              <span class="code-file">SanBrewCafe / index.html</span>
+              <span class="code-file" data-labels='["SanBrewCafe / index.html","SanBrewCafe — live preview"]'>SanBrewCafe / index.html</span>
             </div>
+            <div class="slider">
+              <div class="slides">
+                <div class="slide slide-code">
             <pre><code><span class="c">&lt;!-- device-adaptive stylesheets --&gt;</span>
 &lt;<span class="t">link</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span> <span class="a">href</span>=<span class="s">"Style.css"</span>&gt;
 &lt;<span class="t">link</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span> <span class="a">href</span>=<span class="s">"phonestyle.css"</span>
@@ -277,58 +289,24 @@
     &lt;<span class="t">li</span>&gt;&lt;<span class="t">a</span> <span class="a">href</span>=<span class="s">"#contact_section"</span>&gt;Contact Us&lt;/<span class="t">a</span>&gt;&lt;/<span class="t">li</span>&gt;
   &lt;/<span class="t">ul</span>&gt;
 &lt;/<span class="t">nav</span>&gt;</code></pre>
-          </div>
-        </article>
-
-        <!-- Chitrarth Athletics -->
-        <article class="project reveal">
-          <div class="project-info">
-            <p class="project-date">2024-02</p>
-            <h3>Chitrarth Athletics — Best Gym in the Town</h3>
-            <p>
-              Clean, visually appealing gym website showcasing facilities, training programs and
-              membership details.
-            </p>
-            <ul class="project-points">
-              <li>Structured layout ensuring easy navigation across sections</li>
-              <li>Contact form for membership inquiries</li>
-              <li>Streamlined signup — form completion time reduced by 30%</li>
-            </ul>
-            <div class="tags">
-              <span>HTML</span><span>CSS</span>
+                </div>
+                <div class="slide slide-shot">
+                  <img src="assets/sanbrew.jpg" alt="SanBrew cafe website — live homepage" loading="lazy" />
+                </div>
+              </div>
             </div>
-            <a class="repo-link" href="https://github.com/chitrarth11/ChitrarthAthletics" target="_blank" rel="noopener noreferrer" data-magnetic>
-              View repository <span class="arrow">→</span>
-            </a>
-          </div>
-          <div class="code-window tilt" data-tilt-max="6">
-            <div class="code-bar">
-              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-              <span class="code-file">ChitrarthAthletics / index.html</span>
+            <div class="slide-controls">
+              <button class="slide-arrow slide-prev" aria-label="Previous view">‹</button>
+              <button class="slide-dot active" aria-label="Show code snippet"></button>
+              <button class="slide-dot" aria-label="Show live preview"></button>
+              <button class="slide-arrow slide-next" aria-label="Next view">›</button>
             </div>
-            <pre><code><span class="c">/* hero backdrop + glass navbar */</span>
-<span class="t">body</span> {
-  <span class="a">margin</span>: <span class="s">0</span>;
-  <span class="a">background</span>: <span class="s">url('Images/machines-dark.jpg') no-repeat</span>;
-  <span class="a">background-size</span>: <span class="s">cover</span>;
-}
-<span class="t">.mid</span> {
-  <span class="a">background-color</span>: <span class="s">rgb(98 214 197 / 80%)</span>;
-  <span class="a">border</span>: <span class="s">3px solid rgb(15, 89, 78)</span>;
-  <span class="a">border-radius</span>: <span class="s">50px</span>;
-  <span class="a">width</span>: <span class="s">51%</span>;
-}
-<span class="t">.logo</span> {
-  <span class="a">width</span>: <span class="s">95px</span>;
-  <span class="a">filter</span>: <span class="s">invert(100%)</span>;
-}</code></pre>
           </div>
         </article>
 
         <!-- Dance Academy -->
         <article class="project reveal">
           <div class="project-info">
-            <p class="project-date">2024-03</p>
             <h3>Chitrarth Dance Academy — Dance. Eat. Sleep. Repeat</h3>
             <p>
               Modern, expressive website for a dance academy with server-side rendering and a
@@ -349,8 +327,11 @@
           <div class="code-window tilt" data-tilt-max="6">
             <div class="code-bar">
               <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-              <span class="code-file">Chitrarth-Dance-Academy / app.js</span>
+              <span class="code-file" data-labels='["Chitrarth-Dance-Academy / app.js","Chitrarth-Dance-Academy — live preview"]'>Chitrarth-Dance-Academy / app.js</span>
             </div>
+            <div class="slider">
+              <div class="slides">
+                <div class="slide slide-code">
             <pre><code><span class="c">// Mongoose schema for contact submissions</span>
 <span class="k">const</span> contactSchema = <span class="k">new</span> mongoose.<span class="f">Schema</span>({
   name: String,
@@ -363,6 +344,77 @@
 <span class="c">// Pug server-side rendering</span>
 appli.<span class="f">set</span>(<span class="s">'view engine'</span>, <span class="s">'pug'</span>);
 appli.<span class="f">set</span>(<span class="s">'views'</span>, path.<span class="f">join</span>(__dirname, <span class="s">'views'</span>));</code></pre>
+                </div>
+                <div class="slide slide-shot">
+                  <img src="assets/dance.jpg" alt="Chitrarth Dance Academy website — live homepage" loading="lazy" />
+                </div>
+              </div>
+            </div>
+            <div class="slide-controls">
+              <button class="slide-arrow slide-prev" aria-label="Previous view">‹</button>
+              <button class="slide-dot active" aria-label="Show code snippet"></button>
+              <button class="slide-dot" aria-label="Show live preview"></button>
+              <button class="slide-arrow slide-next" aria-label="Next view">›</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Chitrarth Athletics -->
+        <article class="project reveal">
+          <div class="project-info">
+            <h3>Chitrarth Athletics — Best Gym in the Town</h3>
+            <p>
+              Clean, visually appealing gym website showcasing facilities, training programs and
+              membership details.
+            </p>
+            <ul class="project-points">
+              <li>Structured layout ensuring easy navigation across sections</li>
+              <li>Contact form for membership inquiries</li>
+              <li>Streamlined signup — form completion time reduced by 30%</li>
+            </ul>
+            <div class="tags">
+              <span>HTML</span><span>CSS</span>
+            </div>
+            <a class="repo-link" href="https://github.com/chitrarth11/ChitrarthAthletics" target="_blank" rel="noopener noreferrer" data-magnetic>
+              View repository <span class="arrow">→</span>
+            </a>
+          </div>
+          <div class="code-window tilt" data-tilt-max="6">
+            <div class="code-bar">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <span class="code-file" data-labels='["ChitrarthAthletics / index.html","ChitrarthAthletics — live preview"]'>ChitrarthAthletics / index.html</span>
+            </div>
+            <div class="slider">
+              <div class="slides">
+                <div class="slide slide-code">
+            <pre><code><span class="c">/* hero backdrop + glass navbar */</span>
+<span class="t">body</span> {
+  <span class="a">margin</span>: <span class="s">0</span>;
+  <span class="a">background</span>: <span class="s">url('Images/machines-dark.jpg') no-repeat</span>;
+  <span class="a">background-size</span>: <span class="s">cover</span>;
+}
+<span class="t">.mid</span> {
+  <span class="a">background-color</span>: <span class="s">rgb(98 214 197 / 80%)</span>;
+  <span class="a">border</span>: <span class="s">3px solid rgb(15, 89, 78)</span>;
+  <span class="a">border-radius</span>: <span class="s">50px</span>;
+  <span class="a">width</span>: <span class="s">51%</span>;
+}
+<span class="t">.logo</span> {
+  <span class="a">width</span>: <span class="s">95px</span>;
+  <span class="a">filter</span>: <span class="s">invert(100%)</span>;
+}</code></pre>
+                </div>
+                <div class="slide slide-shot">
+                  <img src="assets/gym.jpg" alt="Chitrarth Athletics gym website — live homepage" loading="lazy" />
+                </div>
+              </div>
+            </div>
+            <div class="slide-controls">
+              <button class="slide-arrow slide-prev" aria-label="Previous view">‹</button>
+              <button class="slide-dot active" aria-label="Show code snippet"></button>
+              <button class="slide-dot" aria-label="Show live preview"></button>
+              <button class="slide-arrow slide-next" aria-label="Next view">›</button>
+            </div>
           </div>
         </article>
 
@@ -381,18 +433,17 @@ appli.<span class="f">set</span>(<span class="s">'views'</span>, path.<span clas
           <span class="edu-score">CGPA 8.01</span>
         </div>
         <div class="edu-card tilt spotlight reveal">
-          <p class="edu-when">2021 — 2022</p>
+          <p class="edu-when">2019 — 2022</p>
           <h3>Him Academy Public School</h3>
-          <p class="edu-what">12th Grade</p>
           <p class="edu-where">Hamirpur, Himachal Pradesh</p>
-          <span class="edu-score">86.8%</span>
-        </div>
-        <div class="edu-card tilt spotlight reveal">
-          <p class="edu-when">2019 — 2020</p>
-          <h3>Him Academy Public School</h3>
-          <p class="edu-what">10th Grade</p>
-          <p class="edu-where">Hamirpur, Himachal Pradesh</p>
-          <span class="edu-score">89.7%</span>
+          <div class="edu-row">
+            <span class="edu-what">12th Grade · 2021 — 2022</span>
+            <span class="edu-score">86.8%</span>
+          </div>
+          <div class="edu-row">
+            <span class="edu-what">10th Grade · 2019 — 2020</span>
+            <span class="edu-score">89.7%</span>
+          </div>
         </div>
       </div>
     </section>
@@ -401,10 +452,8 @@ appli.<span class="f">set</span>(<span class="s">'views'</span>, path.<span clas
     <footer id="contact" class="footer">
       <h2 class="footer-title reveal">Let's build something <span class="grad">stellar</span>.</h2>
       <p class="footer-sub reveal">Open to full-stack roles, freelance missions and cosmic collaborations.</p>
-      <a href="mailto:eeshchitrarth03@gmail.com" class="btn btn-primary footer-mail reveal" data-magnetic>
-        eeshchitrarth03@gmail.com
-      </a>
-      <p class="footer-meta reveal">Delhi, India &nbsp;·&nbsp; +91 821 920 1705</p>
+      <a href="mailto:eeshchitrarth03@gmail.com" class="mail-btn reveal">✉&nbsp; eeshchitrarth03@gmail.com</a>
+      <p class="footer-meta reveal">Delhi, India</p>
 
       <div class="socials reveal">
         <a href="https://github.com/chitrarth11" target="_blank" rel="noopener noreferrer"
