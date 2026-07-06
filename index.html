@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eesh Chitrarth Sharma — Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of Eesh Chitrarth Sharma — full-stack developer building fast, user-friendly web applications with React, Node.js and MongoDB." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>" />
+</head>
+<body>
+
+  <!-- ===== Cosmic background layers ===== -->
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="nebula" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- ===== Custom cursor ===== -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ===== Navigation ===== -->
+  <header class="nav-wrap">
+    <nav class="nav" aria-label="Primary">
+      <a href="#top" class="nav-logo" data-magnetic>eesh<span>.dev</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <div class="hero-inner" data-parallax="0.03">
+        <p class="hero-hello reveal">Transmission from Delhi, India 🛰️</p>
+        <h1 class="hero-name reveal">
+          <span class="line">Eesh Chitrarth</span>
+          <span class="line grad">Sharma</span>
+        </h1>
+        <p class="hero-type reveal">I build <span id="typewriter"></span><span class="caret">|</span></p>
+        <p class="hero-sub reveal">
+          Versatile full-stack developer crafting responsive, accessible interfaces with
+          React &amp; Node.js — currently shipping insurance-tech at scale for 100+ corporate clients.
+        </p>
+        <div class="hero-cta reveal">
+          <a href="#projects" class="btn btn-primary" data-magnetic>Explore Projects</a>
+          <a href="#contact" class="btn btn-ghost" data-magnetic>Get in Touch</a>
+        </div>
+      </div>
+      <a href="#about" class="scroll-hint" aria-label="Scroll down">
+        <span class="mouse"><span class="wheel"></span></span>
+      </a>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section id="about" class="section">
+      <h2 class="section-title reveal"><span class="section-num">01</span> Mission Briefing</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I'm a versatile web developer skilled in building responsive and accessible interfaces
+            with <strong>HTML, CSS, JavaScript and React</strong>. Comfortable across the full stack
+            with <strong>Node.js, MongoDB, PHP and SQL</strong>, experienced with Git-based workflows
+            and modern development tools.
+          </p>
+          <p>
+            Focused on writing clean, maintainable code and collaborating effectively to create
+            fast, user-friendly web applications.
+          </p>
+          <div class="about-langs">
+            <span class="chip">🇮🇳 Hindi</span>
+            <span class="chip">🇬🇧 English</span>
+            <span class="chip">🇯🇵 Japanese</span>
+          </div>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card tilt reveal">
+            <span class="stat-num" data-count="100">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Corporate clients served</span>
+          </div>
+          <div class="stat-card tilt reveal">
+            <span class="stat-num" data-count="50">0</span><span class="stat-plus">%</span>
+            <span class="stat-label">Faster response times shipped</span>
+          </div>
+          <div class="stat-card tilt reveal">
+            <span class="stat-num" data-count="1000">0</span><span class="stat-plus">s</span>
+            <span class="stat-label">Employee transactions integrated</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Skills ===== -->
+    <section id="skills" class="section">
+      <h2 class="section-title reveal"><span class="section-num">02</span> Tech Constellation</h2>
+      <div class="skills-grid">
+        <div class="skill-card tilt spotlight reveal">
+          <h3>Frontend</h3>
+          <div class="tags">
+            <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>React</span>
+            <span>Tailwind CSS</span><span>Bootstrap</span>
+          </div>
+        </div>
+        <div class="skill-card tilt spotlight reveal">
+          <h3>Backend</h3>
+          <div class="tags">
+            <span>Node.js</span><span>Express.js</span><span>RESTful APIs</span><span>PHP</span>
+          </div>
+        </div>
+        <div class="skill-card tilt spotlight reveal">
+          <h3>Databases</h3>
+          <div class="tags">
+            <span>MongoDB</span><span>Mongoose ODM</span><span>MySQL</span><span>SQL</span>
+          </div>
+        </div>
+        <div class="skill-card tilt spotlight reveal">
+          <h3>Languages</h3>
+          <div class="tags">
+            <span>JavaScript</span><span>PHP</span><span>Java (Basic)</span>
+          </div>
+        </div>
+        <div class="skill-card tilt spotlight reveal">
+          <h3>Site Builders</h3>
+          <div class="tags">
+            <span>WordPress</span><span>Shopify</span>
+          </div>
+        </div>
+        <div class="skill-card tilt spotlight reveal">
+          <h3>Tools</h3>
+          <div class="tags">
+            <span>Git</span><span>GitHub</span><span>yarn / npm</span>
+            <span>Chrome DevTools</span><span>VS Code</span>
+          </div>
+        </div>
+      </div>
+      <div class="soft-skills reveal">
+        <span class="chip">Communication</span>
+        <span class="chip">Collaborative Teamwork</span>
+        <span class="chip">Adaptability</span>
+        <span class="chip">Time Management</span>
+        <span class="chip">Flexibility</span>
+        <span class="chip">Leadership</span>
+        <span class="chip">Attention to Detail</span>
+      </div>
+    </section>
+
+    <!-- ===== Experience ===== -->
+    <section id="experience" class="section">
+      <h2 class="section-title reveal"><span class="section-num">03</span> Flight Log</h2>
+      <div class="timeline">
+
+        <article class="tl-item reveal">
+          <div class="tl-dot pulse"></div>
+          <div class="tl-card tilt spotlight">
+            <div class="tl-head">
+              <h3>Fullstack Developer</h3>
+              <span class="tl-when">Jun 2026 — Present</span>
+            </div>
+            <p class="tl-org">Visit Health Private Limited · Noida, India</p>
+            <ul>
+              <li>Continuing full-stack development on the multi-tenant React + Node.js insurance
+                enrollment portal, taking ownership of feature development, architecture decisions,
+                and code reviews.</li>
+            </ul>
+            <div class="tags">
+              <span>React</span><span>Node.js</span><span>Architecture</span><span>Code Review</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-card tilt spotlight">
+            <div class="tl-head">
+              <h3>Software Developer Intern</h3>
+              <span class="tl-when">Jul 2025 — Jun 2026</span>
+            </div>
+            <p class="tl-org">Visit Health Private Limited · Noida, India</p>
+            <ul>
+              <li>Built and maintained a multi-tenant React + Node.js insurance enrollment portal
+                serving <strong>100+ corporate clients</strong> including Oracle, Carrier, and Genpact.</li>
+              <li>Reduced response times by <strong>50%</strong> by implementing Redis caching and Elasticsearch.</li>
+              <li>Integrated Razorpay and Juspay payment gateways with Aadhaar KYC verification for
+                <strong>1000s of employee transactions</strong>.</li>
+            </ul>
+            <div class="tags">
+              <span>React</span><span>Node.js</span><span>Redis</span><span>Elasticsearch</span>
+              <span>Razorpay</span><span>Juspay</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-card tilt spotlight">
+            <div class="tl-head">
+              <h3>Community Service Volunteer</h3>
+              <span class="tl-when">Jun 2024 — Jul 2024</span>
+            </div>
+            <p class="tl-org">Kshitiksha Foundation · Remote</p>
+            <ul>
+              <li>Planted trees, fed the underprivileged, organized awareness drives on community
+                health and cared for animals as part of social welfare initiatives.</li>
+              <li>Promoted sustainability and responsibility through environmental action.</li>
+              <li>Participated in <strong>5 community events</strong>, engaging with over
+                <strong>50 community members</strong>.</li>
+            </ul>
+            <div class="tags">
+              <span>Community</span><span>Sustainability</span><span>Leadership</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== Projects ===== -->
+    <section id="projects" class="section">
+      <h2 class="section-title reveal"><span class="section-num">04</span> Launched Missions</h2>
+      <p class="section-sub reveal">Live code pulled straight from my public GitHub repositories.</p>
+
+      <div class="projects">
+
+        <!-- SanBrew -->
+        <article class="project reveal">
+          <div class="project-info">
+            <p class="project-date">2024-01</p>
+            <h3>SanBrew — Best Cafe in the Town</h3>
+            <p>
+              Responsive, visually engaging cafe website with an interactive menu and smooth
+              animations, built for optimal cross-device experience.
+            </p>
+            <ul class="project-points">
+              <li>Mobile-friendly layouts using CSS flexbox and media queries</li>
+              <li>Interactive elements with vanilla JavaScript</li>
+              <li>95% responsiveness across desktop, tablet and mobile</li>
+            </ul>
+            <div class="tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+            <a class="repo-link" href="https://github.com/chitrarth11/SanBrewCafe" target="_blank" rel="noopener noreferrer" data-magnetic>
+              View repository <span class="arrow">→</span>
+            </a>
+          </div>
+          <div class="code-window tilt" data-tilt-max="6">
+            <div class="code-bar">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <span class="code-file">SanBrewCafe / index.html</span>
+            </div>
+            <pre><code><span class="c">&lt;!-- device-adaptive stylesheets --&gt;</span>
+&lt;<span class="t">link</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span> <span class="a">href</span>=<span class="s">"Style.css"</span>&gt;
+&lt;<span class="t">link</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span> <span class="a">href</span>=<span class="s">"phonestyle.css"</span>
+      <span class="a">media</span>=<span class="s">"screen and (max-width: 1256px)"</span>&gt;
+
+&lt;<span class="t">nav</span> <span class="a">class</span>=<span class="s">"navbar"</span>&gt;
+  &lt;<span class="t">div</span> <span class="a">class</span>=<span class="s">"logo_main"</span>&gt;
+    &lt;<span class="t">img</span> <span class="a">src</span>=<span class="s">"./Images/Logo/logo4.png"</span>&gt;
+  &lt;/<span class="t">div</span>&gt;
+  &lt;<span class="t">ul</span> <span class="a">class</span>=<span class="s">"navlist"</span>&gt;
+    &lt;<span class="t">li</span>&gt;&lt;<span class="t">a</span> <span class="a">href</span>=<span class="s">"#menu-cont"</span>&gt;Our Menu&lt;/<span class="t">a</span>&gt;&lt;/<span class="t">li</span>&gt;
+    &lt;<span class="t">li</span>&gt;&lt;<span class="t">a</span> <span class="a">href</span>=<span class="s">"#contact_section"</span>&gt;Contact Us&lt;/<span class="t">a</span>&gt;&lt;/<span class="t">li</span>&gt;
+  &lt;/<span class="t">ul</span>&gt;
+&lt;/<span class="t">nav</span>&gt;</code></pre>
+          </div>
+        </article>
+
+        <!-- Chitrarth Athletics -->
+        <article class="project reveal">
+          <div class="project-info">
+            <p class="project-date">2024-02</p>
+            <h3>Chitrarth Athletics — Best Gym in the Town</h3>
+            <p>
+              Clean, visually appealing gym website showcasing facilities, training programs and
+              membership details.
+            </p>
+            <ul class="project-points">
+              <li>Structured layout ensuring easy navigation across sections</li>
+              <li>Contact form for membership inquiries</li>
+              <li>Streamlined signup — form completion time reduced by 30%</li>
+            </ul>
+            <div class="tags">
+              <span>HTML</span><span>CSS</span>
+            </div>
+            <a class="repo-link" href="https://github.com/chitrarth11/ChitrarthAthletics" target="_blank" rel="noopener noreferrer" data-magnetic>
+              View repository <span class="arrow">→</span>
+            </a>
+          </div>
+          <div class="code-window tilt" data-tilt-max="6">
+            <div class="code-bar">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <span class="code-file">ChitrarthAthletics / index.html</span>
+            </div>
+            <pre><code><span class="c">/* hero backdrop + glass navbar */</span>
+<span class="t">body</span> {
+  <span class="a">margin</span>: <span class="s">0</span>;
+  <span class="a">background</span>: <span class="s">url('Images/machines-dark.jpg') no-repeat</span>;
+  <span class="a">background-size</span>: <span class="s">cover</span>;
+}
+<span class="t">.mid</span> {
+  <span class="a">background-color</span>: <span class="s">rgb(98 214 197 / 80%)</span>;
+  <span class="a">border</span>: <span class="s">3px solid rgb(15, 89, 78)</span>;
+  <span class="a">border-radius</span>: <span class="s">50px</span>;
+  <span class="a">width</span>: <span class="s">51%</span>;
+}
+<span class="t">.logo</span> {
+  <span class="a">width</span>: <span class="s">95px</span>;
+  <span class="a">filter</span>: <span class="s">invert(100%)</span>;
+}</code></pre>
+          </div>
+        </article>
+
+        <!-- Dance Academy -->
+        <article class="project reveal">
+          <div class="project-info">
+            <p class="project-date">2024-03</p>
+            <h3>Chitrarth Dance Academy — Dance. Eat. Sleep. Repeat</h3>
+            <p>
+              Modern, expressive website for a dance academy with server-side rendering and a
+              MongoDB-backed contact pipeline.
+            </p>
+            <ul class="project-points">
+              <li>Contact form wired to MongoDB for user submissions</li>
+              <li>Server-side rendering with the Pug templating engine</li>
+              <li>Form submission errors reduced 25% via client-side validation</li>
+            </ul>
+            <div class="tags">
+              <span>HTML</span><span>CSS</span><span>Node.js</span><span>MongoDB</span><span>Pug</span>
+            </div>
+            <a class="repo-link" href="https://github.com/chitrarth11/Chitrarth-Dance-Academy" target="_blank" rel="noopener noreferrer" data-magnetic>
+              View repository <span class="arrow">→</span>
+            </a>
+          </div>
+          <div class="code-window tilt" data-tilt-max="6">
+            <div class="code-bar">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <span class="code-file">Chitrarth-Dance-Academy / app.js</span>
+            </div>
+            <pre><code><span class="c">// Mongoose schema for contact submissions</span>
+<span class="k">const</span> contactSchema = <span class="k">new</span> mongoose.<span class="f">Schema</span>({
+  name: String,
+  phone: String,
+  email: String,
+  query: String
+});
+<span class="k">const</span> Contact = mongoose.<span class="f">model</span>(<span class="s">'Contact'</span>, contactSchema);
+
+<span class="c">// Pug server-side rendering</span>
+appli.<span class="f">set</span>(<span class="s">'view engine'</span>, <span class="s">'pug'</span>);
+appli.<span class="f">set</span>(<span class="s">'views'</span>, path.<span class="f">join</span>(__dirname, <span class="s">'views'</span>));</code></pre>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== Education ===== -->
+    <section id="education" class="section">
+      <h2 class="section-title reveal"><span class="section-num">05</span> Training Grounds</h2>
+      <div class="edu-grid">
+        <div class="edu-card tilt spotlight reveal">
+          <p class="edu-when">2022 — 2026</p>
+          <h3>SRM Institute of Science and Technology</h3>
+          <p class="edu-what">B.Tech — Computer Science &amp; Engineering</p>
+          <p class="edu-where">Delhi NCR, India</p>
+          <span class="edu-score">CGPA 8.01</span>
+        </div>
+        <div class="edu-card tilt spotlight reveal">
+          <p class="edu-when">2021 — 2022</p>
+          <h3>Him Academy Public School</h3>
+          <p class="edu-what">12th Grade</p>
+          <p class="edu-where">Hamirpur, Himachal Pradesh</p>
+          <span class="edu-score">86.8%</span>
+        </div>
+        <div class="edu-card tilt spotlight reveal">
+          <p class="edu-when">2019 — 2020</p>
+          <h3>Him Academy Public School</h3>
+          <p class="edu-what">10th Grade</p>
+          <p class="edu-where">Hamirpur, Himachal Pradesh</p>
+          <span class="edu-score">89.7%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact / Footer ===== -->
+    <footer id="contact" class="footer">
+      <h2 class="footer-title reveal">Let's build something <span class="grad">stellar</span>.</h2>
+      <p class="footer-sub reveal">Open to full-stack roles, freelance missions and cosmic collaborations.</p>
+      <a href="mailto:eeshchitrarth03@gmail.com" class="btn btn-primary footer-mail reveal" data-magnetic>
+        eeshchitrarth03@gmail.com
+      </a>
+      <p class="footer-meta reveal">Delhi, India &nbsp;·&nbsp; +91 821 920 1705</p>
+
+      <div class="socials reveal">
+        <a href="https://github.com/chitrarth11" target="_blank" rel="noopener noreferrer"
+           class="social" aria-label="GitHub — chitrarth11" data-magnetic>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/chitrarth11" target="_blank" rel="noopener noreferrer"
+           class="social" aria-label="LinkedIn — chitrarth11" data-magnetic>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v2.5"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+      </div>
+
+      <p class="copyright">© 2026 Eesh Chitrarth Sharma · Crafted among the stars 🌌</p>
+    </footer>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
