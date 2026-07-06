@@ -794,25 +794,23 @@ body.has-cursor, body.has-cursor a, body.has-cursor button { cursor: none; }
   .edu-grid { grid-template-columns: 1fr; }
 
   /* skills → swipeable stacked deck: full-width top card, next cards
-     peek from the bottom-left corner behind it */
+     peek from behind its bottom-right corner */
   .skills-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 0;
-    padding: 12px 0 36px 24px;
-    scroll-padding-left: 24px;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    padding: 12px 30px 42px 0;
+    touch-action: pan-y;
   }
-  .skills-grid::-webkit-scrollbar { display: none; }
   .skill-card {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-    position: relative;
-    transition: opacity 0.4s ease;
+    grid-area: 1 / 1;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
     will-change: transform;
   }
+  .skill-card:active { cursor: grabbing; }
 
   .nav-toggle { display: flex; }
   .nav-links {

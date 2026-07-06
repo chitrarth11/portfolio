@@ -308,6 +308,7 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
       card.style.setProperty('--my', `${py * 100}%`);
     });
     card.addEventListener('pointerleave', () => {
+      if (window.innerWidth <= 820) return;
       card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)';
     });
   });
@@ -460,42 +461,76 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
   const grid = document.querySelector('.skills-grid');
   if (!grid) return;
   const cards = [...grid.children];
+  const n = cards.length;
   const mq = window.matchMedia('(max-width: 820px)');
-  const PEEK = 12; // px of bottom-left offset per card depth
+  const PEEK = 13; // px of bottom-right offset per card depth
+  let cur = 0;
 
-  function update() {
+  function layout(instant) {
     if (!mq.matches) {
       cards.forEach((c) => {
         c.style.transform = '';
         c.style.zIndex = '';
         c.style.opacity = '';
+        c.style.transition = '';
       });
       return;
     }
-    const padLeft = parseFloat(getComputedStyle(grid).paddingLeft) || 0;
-    const step = cards[0].offsetWidth;
-    cards.forEach((c) => {
-      const d = (c.offsetLeft - grid.scrollLeft - padLeft) / step;
-      if (d > 0.02) {
-        // upcoming card: pull back under the top card, fan toward bottom-left
-        const depth = Math.min(d, 2);
-        c.style.transform =
-          `translate(${-d * step - depth * PEEK}px, ${depth * PEEK}px) scale(${1 - depth * 0.03})`;
-        c.style.opacity = d > 2.3 ? '0' : '1';
-        c.style.zIndex = String(50 - Math.round(d * 10));
-      } else {
-        // current / outgoing card: rides on top and slides away naturally
-        c.style.transform = '';
-        c.style.opacity = '1';
-        c.style.zIndex = '60';
-      }
+    cards.forEach((c, k) => {
+      const q = (k - cur + n) % n; // 0 = top of deck
+      const depth = Math.min(q, 2);
+      if (instant) c.style.transition = 'none';
+      c.style.transform =
+        `translate(${depth * PEEK}px, ${depth * PEEK}px) scale(${1 - depth * 0.035})`;
+      c.style.zIndex = String(n - q);
+      c.style.opacity = q > 2 ? '0' : '';
+      if (instant) requestAnimationFrame(() => { c.style.transition = ''; });
     });
   }
 
-  grid.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  if (mq.addEventListener) mq.addEventListener('change', update);
-  update();
+  // drag the top card left/right to cycle the deck
+  let x0 = null, y0 = null, dragging = false;
+
+  grid.addEventListener('pointerdown', (e) => {
+    if (!mq.matches) return;
+    x0 = e.clientX;
+    y0 = e.clientY;
+    dragging = false;
+    if (grid.setPointerCapture) {
+      try { grid.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    }
+  });
+
+  grid.addEventListener('pointermove', (e) => {
+    if (x0 === null || !mq.matches) return;
+    const dx = e.clientX - x0;
+    const dy = e.clientY - y0;
+    if (!dragging && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) dragging = true;
+    if (dragging) {
+      const top = cards[cur];
+      top.style.transition = 'none';
+      top.style.transform = `translate(${dx}px, 0) rotate(${dx * 0.04}deg)`;
+    }
+  });
+
+  function release(e) {
+    if (x0 === null || !mq.matches) return;
+    const dx = e.clientX - x0;
+    const top = cards[cur];
+    top.style.transition = '';
+    if (dragging && Math.abs(dx) > 60) {
+      cur = (cur + (dx < 0 ? 1 : n - 1)) % n; // swipe left → next, right → previous
+    }
+    layout(false);
+    x0 = y0 = null;
+    dragging = false;
+  }
+  grid.addEventListener('pointerup', release);
+  grid.addEventListener('pointercancel', release);
+
+  window.addEventListener('resize', () => layout(true));
+  if (mq.addEventListener) mq.addEventListener('change', () => layout(true));
+  layout(true);
 })();
 
 /* ------------------------------------------------------------
