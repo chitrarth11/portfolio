@@ -452,28 +452,43 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
 })();
 
 /* ------------------------------------------------------------
-   10. Skills deck — on small screens the cards overlap and the
-       centered card rises above its neighbours while swiping
+   10. Skills deck — on small screens the cards stack like a deck:
+       the top card is full width and upcoming cards peek out from
+       its bottom-left corner; swiping slides the top card away
    ------------------------------------------------------------ */
 (() => {
   const grid = document.querySelector('.skills-grid');
   if (!grid) return;
   const cards = [...grid.children];
   const mq = window.matchMedia('(max-width: 820px)');
+  const PEEK = 12; // px of bottom-left offset per card depth
 
   function update() {
     if (!mq.matches) {
-      cards.forEach((c) => { c.style.transform = ''; c.style.zIndex = ''; });
+      cards.forEach((c) => {
+        c.style.transform = '';
+        c.style.zIndex = '';
+        c.style.opacity = '';
+      });
       return;
     }
-    const rect = grid.getBoundingClientRect();
-    const center = rect.left + rect.width / 2;
+    const padLeft = parseFloat(getComputedStyle(grid).paddingLeft) || 0;
+    const step = cards[0].offsetWidth;
     cards.forEach((c) => {
-      const r = c.getBoundingClientRect();
-      const d = Math.abs((r.left + r.width / 2 - center) / rect.width);
-      const scale = 1 - Math.min(d * 0.35, 0.18);
-      c.style.transform = `scale(${scale})`;
-      c.style.zIndex = String(100 - Math.round(d * 100));
+      const d = (c.offsetLeft - grid.scrollLeft - padLeft) / step;
+      if (d > 0.02) {
+        // upcoming card: pull back under the top card, fan toward bottom-left
+        const depth = Math.min(d, 2);
+        c.style.transform =
+          `translate(${-d * step - depth * PEEK}px, ${depth * PEEK}px) scale(${1 - depth * 0.03})`;
+        c.style.opacity = d > 2.3 ? '0' : '1';
+        c.style.zIndex = String(50 - Math.round(d * 10));
+      } else {
+        // current / outgoing card: rides on top and slides away naturally
+        c.style.transform = '';
+        c.style.opacity = '1';
+        c.style.zIndex = '60';
+      }
     });
   }
 
@@ -489,6 +504,7 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
    ------------------------------------------------------------ */
 (() => {
   document.querySelectorAll('.code-window').forEach((win) => {
+    const slider = win.querySelector('.slider');
     const slides = win.querySelector('.slides');
     if (!slides) return;
     const dots = [...win.querySelectorAll('.slide-dot')];
@@ -498,12 +514,23 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
     const n = slides.children.length;
     let i = 0;
 
+    // window height follows the active slide so screenshots show uncropped
+    function setHeight() {
+      slider.style.height = slides.children[i].offsetHeight + 'px';
+    }
+
     function go(idx) {
       i = ((idx % n) + n) % n;
       slides.style.transform = `translateX(-${i * 100}%)`;
       dots.forEach((d, k) => d.classList.toggle('active', k === i));
       if (labels[i]) label.textContent = labels[i];
+      setHeight();
     }
+
+    window.addEventListener('resize', setHeight);
+    win.querySelectorAll('img').forEach((img) => img.addEventListener('load', setHeight));
+    window.addEventListener('load', setHeight);
+    setHeight();
 
     win.querySelector('.slide-prev').addEventListener('click', () => go(i - 1));
     win.querySelector('.slide-next').addEventListener('click', () => go(i + 1));
