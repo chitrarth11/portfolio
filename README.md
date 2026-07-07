@@ -14,4 +14,4 @@ A galaxy-themed, fully responsive portfolio website. Pure HTML/CSS/JS — no bui
 
 ## Live website
 
-https://chitrarth11.github.io/portfolio/
+https://chitrarth11.github.io/portfolio
