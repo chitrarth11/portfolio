@@ -12,18 +12,6 @@ A galaxy-themed, fully responsive portfolio website. Pure HTML/CSS/JS — no bui
 - Real code snippets pulled from my public repos ([SanBrewCafe](https://github.com/chitrarth11/SanBrewCafe), [ChitrarthAthletics](https://github.com/chitrarth11/ChitrarthAthletics), [Chitrarth-Dance-Academy](https://github.com/chitrarth11/Chitrarth-Dance-Academy))
 - Responsive across desktop / tablet / mobile, honors `prefers-reduced-motion`, touch-friendly fallbacks
 
-## Run locally
+## Live website
 
-Just open `index.html` in a browser, or:
-
-```bash
-npx serve .
-```
-
-## Structure
-
-```
-index.html      # all content & sections
-css/style.css   # galaxy theme, layout, responsive breakpoints
-js/main.js      # starfield, cursor, tilt, magnetic, typewriter, reveals
-```
+https://chitrarth11.github.io/portfolio/
