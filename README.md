@@ -1,6 +1,6 @@
 # 🌌 Eesh Chitrarth Sharma — Portfolio
 
-A galaxy-themed, fully responsive portfolio website. Pure HTML/CSS/JS — no build step, no dependencies.
+A galaxy-themed, fully responsive portfolio website built with React, Vite and styled-components.
 
 ## Features
 
@@ -15,3 +15,23 @@ A galaxy-themed, fully responsive portfolio website. Pure HTML/CSS/JS — no bui
 ## Live website
 
 https://chitrarth11.github.io/portfolio
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+## Structure
+
+```
+index.html                  # Vite entry
+src/main.jsx                # React root
+src/Portfolio.jsx           # all sections, hooks & interactions
+src/Portfolio.styles.js     # styled-components (theme, layout, animations)
+public/assets/              # project screenshots
+.github/workflows/deploy.yml  # builds & deploys to GitHub Pages on push
+```
+
+Deployed automatically to GitHub Pages via GitHub Actions on every push to `main`.
