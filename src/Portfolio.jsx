@@ -137,6 +137,36 @@ function Starfield() {
       const px = p.fx * w - nx * p.parallax;
       const py = p.fy * h - ny * p.parallax + bob;
 
+      // moon depth: sin(a) < 0 is the far side of the orbit, so the moon is
+      // drawn BEFORE the planet body there (planet paints over it), and
+      // shrinks/dims with distance for a 3D feel
+      let drawMoon = null;
+      let moonInFront = false;
+      if (p.moon) {
+        const a = (prm ? 0 : tick * 0.008) + p.phase;
+        const depth = (Math.sin(a) + 1) / 2; // 0 = fully behind, 1 = fully in front
+        const mx = px + Math.cos(a) * p.r * 1.35;
+        const my = py + Math.sin(a) * p.r * 0.45;
+        moonInFront = depth >= 0.5;
+        drawMoon = () => {
+          // behind the planet: clip away the planet's disc so the moon is
+          // fully hidden while passing behind it (halo stays translucent)
+          if (!moonInFront) {
+            ctx.save();
+            const clip = new Path2D();
+            clip.rect(0, 0, w, h);
+            clip.arc(px, py, p.r * 0.92, 0, Math.PI * 2);
+            ctx.clip(clip, 'evenodd');
+          }
+          ctx.beginPath();
+          ctx.arc(mx, my, 1.8 + depth * 1.2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(205, 214, 255, ${0.35 + depth * 0.5})`;
+          ctx.fill();
+          if (!moonInFront) ctx.restore();
+        };
+        if (!moonInFront) drawMoon();
+      }
+
       const g = ctx.createRadialGradient(px - p.r * 0.35, py - p.r * 0.35, p.r * 0.1, px, py, p.r);
       g.addColorStop(0, `rgba(${p.c[0]}, ${p.c[1]}, ${p.c[2]}, 0.5)`);
       g.addColorStop(0.7, `rgba(${p.c[0]}, ${p.c[1]}, ${p.c[2]}, 0.2)`);
@@ -163,13 +193,7 @@ function Starfield() {
         ctx.restore();
       }
 
-      if (p.moon) {
-        const a = (prm ? 0 : tick * 0.008) + p.phase;
-        ctx.beginPath();
-        ctx.arc(px + Math.cos(a) * p.r * 1.9, py + Math.sin(a) * p.r * 0.6, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(205, 214, 255, 0.8)';
-        ctx.fill();
-      }
+      if (drawMoon && moonInFront) drawMoon();
     }
 
     function drawGalaxy(nx, ny) {
