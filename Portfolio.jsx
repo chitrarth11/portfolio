@@ -1141,7 +1141,7 @@ function Footer() {
     <FooterWrap id="contact">
       <FooterTitle className="reveal">Let's build something <GradText>stellar</GradText>.</FooterTitle>
       <FooterSub className="reveal">Open to full-stack roles, freelance missions and cosmic collaborations.</FooterSub>
-      <MailBtn href="mailto:eeshchitrarth03@gmail.com" className="reveal">✉&nbsp; eeshchitrarth03@gmail.com</MailBtn>
+      <MailBtn href="mailto:eeshchitrarth03@gmail.com" className="reveal">&nbsp; eeshchitrarth03@gmail.com</MailBtn>
       <FooterMeta className="reveal">Delhi, India</FooterMeta>
 
       <Socials className="reveal">
