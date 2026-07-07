@@ -359,7 +359,7 @@ const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').ma
   if (!el) return;
   const phrases = [
     'full-stack web apps.',
-    'React + Node.js portals.',
+    'React/Typescript + Node.js portals.',
     'responsive interfaces.',
     'SQL & MongoDB data pipelines.',
     'fast, accessible UIs.',
