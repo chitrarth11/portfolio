@@ -1,21 +1,36 @@
 /**
- * Portfolio.jsx — modern React port of the vanilla portfolio.
+ * Portfolio.jsx — modern React port of the vanilla portfolio, styled with
+ * styled-components (see Portfolio.styles.js — all visuals live there).
  *
- * Behaves exactly like index.html + js/main.js: same markup, same class
- * names (so css/style.css applies unchanged), same effects — starfield with
- * constellation lines, planets & galaxy, custom cursor, tilt, magnetic
- * buttons, typewriter, scroll reveals, stat counters, skills deck, and the
+ * Behaves exactly like index.html + js/main.js: starfield with constellation
+ * lines, planets & galaxy, custom cursor, tilt, magnetic buttons, typewriter,
+ * scroll reveals, stat counters, the mobile skills deck, and the
  * code ⇄ live-preview sliders.
  *
  * To run it:
  *   1. npm create vite@latest my-portfolio -- --template react
- *   2. copy this file plus the css/ and assets/ folders into src/
- *   3. render <Portfolio /> from main.jsx
- *   4. add the Google Fonts <link> from index.html to the Vite index.html
+ *   2. npm i styled-components
+ *   3. copy this file, Portfolio.styles.js and the assets/ folder into src/
+ *   4. render <Portfolio /> from main.jsx
+ *   5. add the Google Fonts <link> from index.html to the Vite index.html
  */
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import './css/style.css';
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import {
+  GlobalStyle, StarsCanvas, NebulaWrap, Blob, CursorDot, CursorRing,
+  NavWrap, NavBar, NavLogo, NavToggle, NavLinks,
+  Btn, LiveBtn, HeroSection, HeroInner, HeroHello, HeroName, NameLine,
+  GradText, HeroType, Caret, HeroSub, HeroCta, ScrollHint, Chev,
+  Section, SectionTitle, SectionNum, SectionSub,
+  AboutText, AboutLangs, Chip, AboutStats, StatCardBox, StatNum, StatLabel,
+  Tags, SkillsGrid, SkillCard, SoftMarquee, SoftTrack, SoftStar,
+  Timeline, TlItem, TlDot, TlCard, TlHead, TlWhen, TlOrg,
+  ProjectsWrap, ProjectCard, ProjectInfo, ProjectPoints, ProjectLinks, RepoLink,
+  CodeWindow, CodeBar, WinDot, CodeFile, Slider, Slides, Slide, SlideShot,
+  CodePre, Tok, SlideControls, SlideArrow, SlideDot,
+  EduGrid, EduCard, EduWhen, EduWhat, EduWhere, EduScore, EduRow,
+  FooterWrap, FooterTitle, FooterSub, MailBtn, FooterMeta, Socials, SocialLink, Copyright,
+} from './Portfolio.styles';
 
 /* ============================================================
    Shared helpers
@@ -275,7 +290,7 @@ function Starfield() {
     };
   }, []);
 
-  return <canvas id="stars" ref={canvasRef} aria-hidden="true" />;
+  return <StarsCanvas ref={canvasRef} aria-hidden="true" />;
 }
 
 function Nebula() {
@@ -283,7 +298,7 @@ function Nebula() {
 
   useEffect(() => {
     if (!finePointer() || reducedMotion()) return;
-    const blobs = wrapRef.current.querySelectorAll('.blob');
+    const blobs = [...wrapRef.current.children];
     const strengths = [24, -32, 18];
     const onMove = (e) => {
       const nx = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -297,11 +312,11 @@ function Nebula() {
   }, []);
 
   return (
-    <div className="nebula" ref={wrapRef} aria-hidden="true">
-      <div className="blob blob-1" />
-      <div className="blob blob-2" />
-      <div className="blob blob-3" />
-    </div>
+    <NebulaWrap ref={wrapRef} aria-hidden="true">
+      <Blob $v={1} />
+      <Blob $v={2} />
+      <Blob $v={3} />
+    </NebulaWrap>
   );
 }
 
@@ -359,8 +374,8 @@ function CustomCursor() {
 
   return (
     <>
-      <div className="cursor-dot" ref={dotRef} aria-hidden="true" />
-      <div className="cursor-ring" ref={ringRef} aria-hidden="true" />
+      <CursorDot ref={dotRef} aria-hidden="true" />
+      <CursorRing ref={ringRef} aria-hidden="true" />
     </>
   );
 }
@@ -499,30 +514,30 @@ function Hero() {
   }, []);
 
   return (
-    <section className="hero">
-      <div className="hero-inner" ref={innerRef}>
-        <p className="hero-hello reveal">Transmission from Delhi, India 🛰️</p>
-        <h1 className="hero-name reveal">
-          <span className="line">Eesh Chitrarth</span>
-          <span className="line grad">Sharma</span>
-        </h1>
-        <p className="hero-type reveal">
-          I build <span id="typewriter">{typed}</span><span className="caret">|</span>
-        </p>
-        <p className="hero-sub reveal">
+    <HeroSection>
+      <HeroInner ref={innerRef}>
+        <HeroHello className="reveal">Transmission from Delhi, India 🛰️</HeroHello>
+        <HeroName className="reveal">
+          <NameLine>Eesh Chitrarth</NameLine>
+          <NameLine $grad>Sharma</NameLine>
+        </HeroName>
+        <HeroType className="reveal">
+          I build <strong>{typed}</strong><Caret>|</Caret>
+        </HeroType>
+        <HeroSub className="reveal">
           Versatile full-stack developer crafting responsive, accessible interfaces with
           React &amp; Node.js — currently shipping insurance-tech at scale for 100+ corporate clients.
-        </p>
-        <div className="hero-cta reveal">
-          <a href="#projects" className="btn btn-primary" data-magnetic>Explore Projects</a>
-          <a href="#contact" className="btn btn-ghost" data-magnetic>Get in Touch</a>
-        </div>
-      </div>
-      <a href="#about" className="scroll-hint" aria-label="Scroll down">
-        <span className="chev" />
-        <span className="chev" />
-      </a>
-    </section>
+        </HeroSub>
+        <HeroCta className="reveal">
+          <Btn href="#projects" data-magnetic>Explore Projects</Btn>
+          <Btn href="#contact" $ghost data-magnetic>Get in Touch</Btn>
+        </HeroCta>
+      </HeroInner>
+      <ScrollHint href="#about" aria-label="Scroll down">
+        <Chev />
+        <Chev />
+      </ScrollHint>
+    </HeroSection>
   );
 }
 
@@ -555,43 +570,41 @@ function StatCard({ target, suffix, label }) {
   }, [target]);
 
   return (
-    <div className="stat-card tilt reveal">
-      <span className="stat-num" ref={numRef}>0</span>
-      <span className="stat-plus">{suffix}</span>
-      <span className="stat-label">{label}</span>
-    </div>
+    <StatCardBox className="tilt reveal">
+      <StatNum ref={numRef}>0</StatNum>
+      <StatNum>{suffix}</StatNum>
+      <StatLabel>{label}</StatLabel>
+    </StatCardBox>
   );
 }
 
 function About() {
   return (
-    <section id="about" className="section">
-      <h2 className="section-title reveal"><span className="section-num">01</span> Mission Briefing</h2>
-      <div className="about-grid">
-        <div className="about-text reveal">
-          <p>
-            I'm a versatile web developer skilled in building responsive and accessible interfaces
-            with <strong>HTML, CSS, JavaScript and React</strong>. Comfortable across the full stack
-            with <strong>Node.js, MongoDB, PHP and SQL</strong>, experienced with Git-based workflows
-            and modern development tools.
-          </p>
-          <p>
-            Focused on writing clean, maintainable code and collaborating effectively to create
-            fast, user-friendly web applications.
-          </p>
-          <div className="about-langs">
-            <span className="chip">🇮🇳 Hindi</span>
-            <span className="chip">🇬🇧 English</span>
-            <span className="chip">🇯🇵 Japanese</span>
-          </div>
-        </div>
-        <div className="about-stats">
-          <StatCard target={100} suffix="+" label="Corporate clients served" />
-          <StatCard target={50} suffix="%" label="Faster response times shipped" />
-          <StatCard target={1000} suffix="s" label="Employee transactions integrated" />
-        </div>
-      </div>
-    </section>
+    <Section id="about">
+      <SectionTitle className="reveal"><SectionNum>01</SectionNum> Mission Briefing</SectionTitle>
+      <AboutText className="reveal">
+        <p>
+          I'm a versatile web developer skilled in building responsive and accessible interfaces
+          with <strong>HTML, CSS, JavaScript and React</strong>. Comfortable across the full stack
+          with <strong>Node.js, MongoDB, PHP and SQL</strong>, experienced with Git-based workflows
+          and modern development tools.
+        </p>
+        <p>
+          Focused on writing clean, maintainable code and collaborating effectively to create
+          fast, user-friendly web applications.
+        </p>
+        <AboutLangs>
+          <Chip>🇮🇳 Hindi</Chip>
+          <Chip>🇬🇧 English</Chip>
+          <Chip>🇯🇵 Japanese</Chip>
+        </AboutLangs>
+      </AboutText>
+      <AboutStats>
+        <StatCard target={100} suffix="+" label="Corporate clients served" />
+        <StatCard target={50} suffix="%" label="Faster response times shipped" />
+        <StatCard target={1000} suffix="s" label="Employee transactions integrated" />
+      </AboutStats>
+    </Section>
   );
 }
 
@@ -600,7 +613,7 @@ function About() {
    ============================================================ */
 
 const SKILL_GROUPS = [
-  { title: 'Frontend', tags: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Tailwind CSS', 'Bootstrap'] },
+  { title: 'Frontend', tags: ['HTML5', 'CSS3', 'JavaScript', 'React', 'TypeScript', 'Tailwind', 'Bootstrap'] },
   { title: 'Backend', tags: ['Node.js', 'Express.js', 'RESTful APIs', 'PHP'] },
   { title: 'Databases', tags: ['MongoDB', 'Mongoose ODM', 'MySQL', 'SQL'] },
   { title: 'Languages', tags: ['JavaScript', 'PHP', 'Java (Basic)'] },
@@ -668,10 +681,9 @@ function Skills() {
   };
 
   return (
-    <section id="skills" className="section">
-      <h2 className="section-title reveal"><span className="section-num">02</span> Tech Constellation</h2>
-      <div
-        className="skills-grid"
+    <Section id="skills">
+      <SectionTitle className="reveal"><SectionNum>02</SectionNum> Tech Constellation</SectionTitle>
+      <SkillsGrid
         ref={gridRef}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -679,27 +691,28 @@ function Skills() {
         onPointerCancel={onPointerUp}
       >
         {SKILL_GROUPS.map((group, k) => (
-          <div key={group.title} className="skill-card tilt spotlight reveal" style={deckStyle(k)}>
+          <SkillCard key={group.title} className="tilt spotlight reveal" style={deckStyle(k)}>
             <h3>{group.title}</h3>
-            <div className="tags">
+            <Tags>
               {group.tags.map((tag) => <span key={tag}>{tag}</span>)}
-            </div>
-          </div>
+            </Tags>
+          </SkillCard>
         ))}
-      </div>
-      <div className="soft-marquee reveal" aria-label="Soft skills">
-        <div className="soft-track">
+      </SkillsGrid>
+      <SoftMarquee className="reveal" aria-label="Soft skills">
+        <SoftTrack>
           {/* rendered twice so the -50% translate loops seamlessly */}
           {[0, 1].map((half) =>
             SOFT_SKILLS.map((skill) => (
-              <span key={`${half}-${skill}`}>
-                <span>{skill}</span><span className="star"> ✦</span>
-              </span>
+              <Fragment key={`${half}-${skill}`}>
+                <span>{skill}</span>
+                <SoftStar>✦</SoftStar>
+              </Fragment>
             ))
           )}
-        </div>
-      </div>
-    </section>
+        </SoftTrack>
+      </SoftMarquee>
+    </Section>
   );
 }
 
@@ -750,40 +763,114 @@ const EXPERIENCE = [
 
 function Experience() {
   return (
-    <section id="experience" className="section">
-      <h2 className="section-title reveal"><span className="section-num">03</span> Flight Log</h2>
-      <div className="timeline">
+    <Section id="experience">
+      <SectionTitle className="reveal"><SectionNum>03</SectionNum> Flight Log</SectionTitle>
+      <Timeline>
         {EXPERIENCE.map((job) => (
-          <article key={job.role} className="tl-item reveal">
-            <div className={job.pulse ? 'tl-dot pulse' : 'tl-dot'} />
-            <div className="tl-card tilt spotlight">
-              <div className="tl-head">
+          <TlItem key={job.role} className="reveal">
+            <TlDot $pulse={job.pulse} />
+            <TlCard className="tilt spotlight">
+              <TlHead>
                 <h3>{job.role}</h3>
-                <span className="tl-when">{job.when}</span>
-              </div>
-              <p className="tl-org">{job.org}</p>
+                <TlWhen>{job.when}</TlWhen>
+              </TlHead>
+              <TlOrg>{job.org}</TlOrg>
               <ul>
                 {job.bullets.map((b, i) => <li key={i}>{b}</li>)}
               </ul>
-              <div className="tags">
+              <Tags>
                 {job.tags.map((t) => <span key={t}>{t}</span>)}
-              </div>
-            </div>
-          </article>
+              </Tags>
+            </TlCard>
+          </TlItem>
         ))}
-      </div>
-    </section>
+      </Timeline>
+    </Section>
   );
 }
 
 /* ============================================================
-   Projects — info panel + code ⇄ live-preview slider
+   Projects — code snippets as typed token data (no raw HTML),
+   rendered through the styled Tok.* spans
    ============================================================ */
 
-/* The snippets are pre-highlighted HTML (same as index.html). They're
-   injected with dangerouslySetInnerHTML because JSX would treat all the
-   braces in real code as expressions. The strings are ours, not user
-   input, so this is safe here. */
+const c = (text) => ({ type: 'C', text }); // comment
+const t = (text) => ({ type: 'T', text }); // tag / selector
+const a = (text) => ({ type: 'A', text }); // attribute / property
+const s = (text) => ({ type: 'S', text }); // string / value
+const k = (text) => ({ type: 'K', text }); // keyword
+const f = (text) => ({ type: 'F', text }); // function
+
+const SANBREW_CODE = [
+  [c('<!-- device-adaptive stylesheets -->')],
+  ['<', t('link'), ' ', a('rel'), '=', s('"stylesheet"'), ' ', a('href'), '=', s('"Style.css"'), '>'],
+  ['<', t('link'), ' ', a('rel'), '=', s('"stylesheet"'), ' ', a('href'), '=', s('"phonestyle.css"')],
+  ['      ', a('media'), '=', s('"screen and (max-width: 1256px)"'), '>'],
+  [''],
+  ['<', t('nav'), ' ', a('class'), '=', s('"navbar"'), '>'],
+  ['  <', t('div'), ' ', a('class'), '=', s('"logo_main"'), '>'],
+  ['    <', t('img'), ' ', a('src'), '=', s('"./Images/Logo/logo4.png"'), '>'],
+  ['  </', t('div'), '>'],
+  ['  <', t('ul'), ' ', a('class'), '=', s('"navlist"'), '>'],
+  ['    <', t('li'), '><', t('a'), ' ', a('href'), '=', s('"#menu-cont"'), '>Our Menu</', t('a'), '></', t('li'), '>'],
+  ['    <', t('li'), '><', t('a'), ' ', a('href'), '=', s('"#contact_section"'), '>Contact Us</', t('a'), '></', t('li'), '>'],
+  ['  </', t('ul'), '>'],
+  ['</', t('nav'), '>'],
+];
+
+const DANCE_CODE = [
+  [c('// Mongoose schema for contact submissions')],
+  [k('const'), ' contactSchema = ', k('new'), ' mongoose.', f('Schema'), '({'],
+  ['  name: String,'],
+  ['  phone: String,'],
+  ['  email: String,'],
+  ['  query: String'],
+  ['});'],
+  [k('const'), ' Contact = mongoose.', f('model'), '(', s("'Contact'"), ', contactSchema);'],
+  [''],
+  [c('// Pug server-side rendering')],
+  ['appli.', f('set'), '(', s("'view engine'"), ', ', s("'pug'"), ');'],
+  ['appli.', f('set'), '(', s("'views'"), ', path.', f('join'), '(__dirname, ', s("'views'"), '));'],
+];
+
+const GYM_CODE = [
+  [c('/* hero backdrop + glass navbar */')],
+  [t('body'), ' {'],
+  ['  ', a('margin'), ': ', s('0'), ';'],
+  ['  ', a('background'), ': ', s("url('Images/machines-dark.jpg') no-repeat"), ';'],
+  ['  ', a('background-size'), ': ', s('cover'), ';'],
+  ['}'],
+  [t('.mid'), ' {'],
+  ['  ', a('background-color'), ': ', s('rgb(98 214 197 / 80%)'), ';'],
+  ['  ', a('border'), ': ', s('3px solid rgb(15, 89, 78)'), ';'],
+  ['  ', a('border-radius'), ': ', s('50px'), ';'],
+  ['  ', a('width'), ': ', s('51%'), ';'],
+  ['}'],
+  [t('.logo'), ' {'],
+  ['  ', a('width'), ': ', s('95px'), ';'],
+  ['  ', a('filter'), ': ', s('invert(100%)'), ';'],
+  ['}'],
+];
+
+function CodeSnippet({ lines }) {
+  return (
+    <CodePre>
+      <code>
+        {lines.map((line, i) => (
+          <Fragment key={i}>
+            {line.map((tok, j) => {
+              if (typeof tok === 'string') return <Fragment key={j}>{tok}</Fragment>;
+              const TokSpan = Tok[tok.type];
+              return <TokSpan key={j}>{tok.text}</TokSpan>;
+            })}
+            {'\n'}
+          </Fragment>
+        ))}
+      </code>
+    </CodePre>
+  );
+}
+
 const PROJECTS = [
   {
     title: 'SanBrew — Best Cafe in the Town',
@@ -800,20 +887,7 @@ const PROJECTS = [
     labels: ['SanBrewCafe / index.html', 'SanBrewCafe — live preview'],
     img: 'assets/sanbrew.jpg',
     alt: 'SanBrew cafe website — live homepage',
-    code: `<span class="c">&lt;!-- device-adaptive stylesheets --&gt;</span>
-&lt;<span class="t">link</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span> <span class="a">href</span>=<span class="s">"Style.css"</span>&gt;
-&lt;<span class="t">link</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span> <span class="a">href</span>=<span class="s">"phonestyle.css"</span>
-      <span class="a">media</span>=<span class="s">"screen and (max-width: 1256px)"</span>&gt;
-
-&lt;<span class="t">nav</span> <span class="a">class</span>=<span class="s">"navbar"</span>&gt;
-  &lt;<span class="t">div</span> <span class="a">class</span>=<span class="s">"logo_main"</span>&gt;
-    &lt;<span class="t">img</span> <span class="a">src</span>=<span class="s">"./Images/Logo/logo4.png"</span>&gt;
-  &lt;/<span class="t">div</span>&gt;
-  &lt;<span class="t">ul</span> <span class="a">class</span>=<span class="s">"navlist"</span>&gt;
-    &lt;<span class="t">li</span>&gt;&lt;<span class="t">a</span> <span class="a">href</span>=<span class="s">"#menu-cont"</span>&gt;Our Menu&lt;/<span class="t">a</span>&gt;&lt;/<span class="t">li</span>&gt;
-    &lt;<span class="t">li</span>&gt;&lt;<span class="t">a</span> <span class="a">href</span>=<span class="s">"#contact_section"</span>&gt;Contact Us&lt;/<span class="t">a</span>&gt;&lt;/<span class="t">li</span>&gt;
-  &lt;/<span class="t">ul</span>&gt;
-&lt;/<span class="t">nav</span>&gt;`,
+    code: SANBREW_CODE,
   },
   {
     title: 'Chitrarth Dance Academy — Dance. Eat. Sleep. Repeat',
@@ -830,18 +904,7 @@ const PROJECTS = [
     labels: ['Chitrarth-Dance-Academy / app.js', 'Chitrarth-Dance-Academy — live preview'],
     img: 'assets/dance.jpg',
     alt: 'Chitrarth Dance Academy website — live homepage',
-    code: `<span class="c">// Mongoose schema for contact submissions</span>
-<span class="k">const</span> contactSchema = <span class="k">new</span> mongoose.<span class="f">Schema</span>({
-  name: String,
-  phone: String,
-  email: String,
-  query: String
-});
-<span class="k">const</span> Contact = mongoose.<span class="f">model</span>(<span class="s">'Contact'</span>, contactSchema);
-
-<span class="c">// Pug server-side rendering</span>
-appli.<span class="f">set</span>(<span class="s">'view engine'</span>, <span class="s">'pug'</span>);
-appli.<span class="f">set</span>(<span class="s">'views'</span>, path.<span class="f">join</span>(__dirname, <span class="s">'views'</span>));`,
+    code: DANCE_CODE,
   },
   {
     title: 'Chitrarth Athletics — Best Gym in the Town',
@@ -858,22 +921,7 @@ appli.<span class="f">set</span>(<span class="s">'views'</span>, path.<span clas
     labels: ['ChitrarthAthletics / index.html', 'ChitrarthAthletics — live preview'],
     img: 'assets/gym.jpg',
     alt: 'Chitrarth Athletics gym website — live homepage',
-    code: `<span class="c">/* hero backdrop + glass navbar */</span>
-<span class="t">body</span> {
-  <span class="a">margin</span>: <span class="s">0</span>;
-  <span class="a">background</span>: <span class="s">url('Images/machines-dark.jpg') no-repeat</span>;
-  <span class="a">background-size</span>: <span class="s">cover</span>;
-}
-<span class="t">.mid</span> {
-  <span class="a">background-color</span>: <span class="s">rgb(98 214 197 / 80%)</span>;
-  <span class="a">border</span>: <span class="s">3px solid rgb(15, 89, 78)</span>;
-  <span class="a">border-radius</span>: <span class="s">50px</span>;
-  <span class="a">width</span>: <span class="s">51%</span>;
-}
-<span class="t">.logo</span> {
-  <span class="a">width</span>: <span class="s">95px</span>;
-  <span class="a">filter</span>: <span class="s">invert(100%)</span>;
-}`,
+    code: GYM_CODE,
   },
 ];
 
@@ -908,74 +956,73 @@ function MediaWindow({ project }) {
   };
 
   return (
-    <div className="code-window tilt" data-tilt-max="6">
-      <div className="code-bar">
-        <span className="dot r" /><span className="dot y" /><span className="dot g" />
-        <span className="code-file">{project.labels[idx]}</span>
-      </div>
-      <div className="slider" style={{ height }}>
-        <div
-          className="slides"
+    <CodeWindow className="tilt" data-tilt-max="6">
+      <CodeBar>
+        <WinDot $c="r" /><WinDot $c="y" /><WinDot $c="g" />
+        <CodeFile>{project.labels[idx]}</CodeFile>
+      </CodeBar>
+      <Slider style={{ height }}>
+        <Slides
           ref={slidesRef}
           style={{ transform: `translateX(-${idx * 100}%)` }}
           onPointerDown={onPointerDown}
           onPointerUp={onPointerUp}
         >
-          <div className="slide slide-code">
-            <pre><code dangerouslySetInnerHTML={{ __html: project.code }} /></pre>
-          </div>
-          <div className="slide slide-shot">
+          <Slide>
+            <CodeSnippet lines={project.code} />
+          </Slide>
+          <SlideShot>
             <img src={project.img} alt={project.alt} loading="lazy" onLoad={measure} />
-          </div>
-        </div>
-      </div>
-      <div className="slide-controls">
-        <button className="slide-arrow slide-prev" aria-label="Previous view" onClick={() => go(idx - 1)}>‹</button>
+          </SlideShot>
+        </Slides>
+      </Slider>
+      <SlideControls>
+        <SlideArrow aria-label="Previous view" onClick={() => go(idx - 1)}>‹</SlideArrow>
         {[0, 1].map((i) => (
-          <button
+          <SlideDot
             key={i}
-            className={idx === i ? 'slide-dot active' : 'slide-dot'}
+            $active={idx === i}
             aria-label={i === 0 ? 'Show code snippet' : 'Show live preview'}
             onClick={() => go(i)}
           />
         ))}
-        <button className="slide-arrow slide-next" aria-label="Next view" onClick={() => go(idx + 1)}>›</button>
-      </div>
-    </div>
+        <SlideArrow aria-label="Next view" onClick={() => go(idx + 1)}>›</SlideArrow>
+      </SlideControls>
+    </CodeWindow>
   );
 }
 
 function Projects() {
   return (
-    <section id="projects" className="section">
-      <h2 className="section-title reveal"><span className="section-num">04</span> Launched Missions</h2>
-      <p className="section-sub reveal">Live code pulled straight from my public GitHub repositories.</p>
-      <div className="projects">
+    <Section id="projects">
+      <SectionTitle className="reveal"><SectionNum>04</SectionNum> Launched Missions</SectionTitle>
+      <SectionSub className="reveal">Live code pulled straight from my public GitHub repositories.</SectionSub>
+      <ProjectsWrap>
         {PROJECTS.map((project) => (
-          <article key={project.title} className="project reveal">
-            <div className="project-info">
+          <ProjectCard key={project.title} className="reveal">
+            <ProjectInfo>
               <h3>{project.title}</h3>
               <p>{project.desc}</p>
-              <ul className="project-points">
+              <ProjectPoints>
                 {project.points.map((pt) => <li key={pt}>{pt}</li>)}
-              </ul>
-              <div className="tags">
-                {project.tags.map((t) => <span key={t}>{t}</span>)}
-              </div>
-              <div className="project-links">
-                <a className="btn btn-primary live-btn" href={project.live} target="_blank" rel="noopener noreferrer" data-magnetic>
+              </ProjectPoints>
+              <Tags>
+                {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+              </Tags>
+              <ProjectLinks>
+                <LiveBtn href={project.live} target="_blank" rel="noopener noreferrer" data-magnetic>
                   View Live Website
-                </a>
-                <a className="repo-link" href={project.repo} target="_blank" rel="noopener noreferrer" data-magnetic>
-                  View repository <span className="arrow">→</span>
-                </a>
-              </div>
-            </div>
+                </LiveBtn>
+                <RepoLink href={project.repo} target="_blank" rel="noopener noreferrer" data-magnetic>
+                  View repository <span>→</span>
+                </RepoLink>
+              </ProjectLinks>
+            </ProjectInfo>
             <MediaWindow project={project} />
-          </article>
+          </ProjectCard>
         ))}
-      </div>
-    </section>
+      </ProjectsWrap>
+    </Section>
   );
 }
 
@@ -985,31 +1032,31 @@ function Projects() {
 
 function Education() {
   return (
-    <section id="education" className="section">
-      <h2 className="section-title reveal"><span className="section-num">05</span> Training Grounds</h2>
-      <div className="edu-grid">
-        <div className="edu-card tilt spotlight reveal">
-          <p className="edu-when">2022 — 2026</p>
+    <Section id="education">
+      <SectionTitle className="reveal"><SectionNum>05</SectionNum> Training Grounds</SectionTitle>
+      <EduGrid>
+        <EduCard className="tilt spotlight reveal">
+          <EduWhen>2022 — 2026</EduWhen>
           <h3>SRM Institute of Science and Technology</h3>
-          <p className="edu-what">B.Tech — Computer Science &amp; Engineering</p>
-          <p className="edu-where">Delhi NCR, India</p>
-          <span className="edu-score">CGPA 8.01</span>
-        </div>
-        <div className="edu-card tilt spotlight reveal">
-          <p className="edu-when">2019 — 2022</p>
+          <EduWhat>B.Tech — Computer Science &amp; Engineering</EduWhat>
+          <EduWhere>Delhi NCR, India</EduWhere>
+          <EduScore>CGPA 8.01</EduScore>
+        </EduCard>
+        <EduCard className="tilt spotlight reveal">
+          <EduWhen>2019 — 2022</EduWhen>
           <h3>Him Academy Public School</h3>
-          <p className="edu-where">Hamirpur, Himachal Pradesh</p>
-          <div className="edu-row">
-            <span className="edu-what">12th Grade · 2021 — 2022</span>
-            <span className="edu-score">86.8%</span>
-          </div>
-          <div className="edu-row">
-            <span className="edu-what">10th Grade · 2019 — 2020</span>
-            <span className="edu-score">89.7%</span>
-          </div>
-        </div>
-      </div>
-    </section>
+          <EduWhere>Hamirpur, Himachal Pradesh</EduWhere>
+          <EduRow>
+            <EduWhat>12th Grade · 2021 — 2022</EduWhat>
+            <EduScore>86.8%</EduScore>
+          </EduRow>
+          <EduRow>
+            <EduWhat>10th Grade · 2019 — 2020</EduWhat>
+            <EduScore>89.7%</EduScore>
+          </EduRow>
+        </EduCard>
+      </EduGrid>
+    </Section>
   );
 }
 
@@ -1052,37 +1099,36 @@ function Nav() {
         if (entry.isIntersecting) setActive(`#${entry.target.id}`);
       });
     }, { rootMargin: '-40% 0px -55% 0px' });
-    document.querySelectorAll('section[id], footer[id]').forEach((s) => obs.observe(s));
+    document.querySelectorAll('section[id], footer[id]').forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, []);
 
   return (
-    <header className={hidden ? 'nav-wrap hidden' : 'nav-wrap'}>
-      <nav className="nav" aria-label="Primary">
-        <a href="#top" className="nav-logo" data-magnetic>eesh<span>.dev</span></a>
-        <button
-          className="nav-toggle"
+    <NavWrap $hidden={hidden}>
+      <NavBar aria-label="Primary">
+        <NavLogo href="#top" data-magnetic>eesh<span>.dev</span></NavLogo>
+        <NavToggle
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
         >
           <span /><span /><span />
-        </button>
-        <ul className={open ? 'nav-links open' : 'nav-links'}>
+        </NavToggle>
+        <NavLinks $open={open}>
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className={[link.cta ? 'nav-cta' : '', active === link.href ? 'active' : ''].join(' ').trim() || undefined}
+                className={[link.cta ? 'cta' : '', active === link.href ? 'active' : ''].join(' ').trim() || undefined}
                 onClick={() => setOpen(false)}
               >
                 {link.label}
               </a>
             </li>
           ))}
-        </ul>
-      </nav>
-    </header>
+        </NavLinks>
+      </NavBar>
+    </NavWrap>
   );
 }
 
@@ -1092,18 +1138,17 @@ function Nav() {
 
 function Footer() {
   return (
-    <footer id="contact" className="footer">
-      <h2 className="footer-title reveal">Let's build something <span className="grad">stellar</span>.</h2>
-      <p className="footer-sub reveal">Open to full-stack roles, freelance missions and cosmic collaborations.</p>
-      <a href="mailto:eeshchitrarth03@gmail.com" className="mail-btn reveal">✉&nbsp; eeshchitrarth03@gmail.com</a>
-      <p className="footer-meta reveal">Delhi, India</p>
+    <FooterWrap id="contact">
+      <FooterTitle className="reveal">Let's build something <GradText>stellar</GradText>.</FooterTitle>
+      <FooterSub className="reveal">Open to full-stack roles, freelance missions and cosmic collaborations.</FooterSub>
+      <MailBtn href="mailto:eeshchitrarth03@gmail.com" className="reveal">✉&nbsp; eeshchitrarth03@gmail.com</MailBtn>
+      <FooterMeta className="reveal">Delhi, India</FooterMeta>
 
-      <div className="socials reveal">
-        <a
+      <Socials className="reveal">
+        <SocialLink
           href="https://github.com/chitrarth11"
           target="_blank"
           rel="noopener noreferrer"
-          className="social"
           aria-label="GitHub — chitrarth11"
           data-magnetic
         >
@@ -1111,12 +1156,11 @@ function Footer() {
                strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
           </svg>
-        </a>
-        <a
+        </SocialLink>
+        <SocialLink
           href="https://linkedin.com/in/chitrarth11"
           target="_blank"
           rel="noopener noreferrer"
-          className="social"
           aria-label="LinkedIn — chitrarth11"
           data-magnetic
         >
@@ -1126,11 +1170,11 @@ function Footer() {
             <rect x="2" y="9" width="4" height="12" />
             <circle cx="4" cy="4" r="2" />
           </svg>
-        </a>
-      </div>
+        </SocialLink>
+      </Socials>
 
-      <p className="copyright">© 2026 Eesh Chitrarth Sharma · Crafted among the stars 🌌</p>
-    </footer>
+      <Copyright>© 2026 Eesh Chitrarth Sharma · Crafted among the stars 🌌</Copyright>
+    </FooterWrap>
   );
 }
 
@@ -1145,6 +1189,7 @@ export default function Portfolio() {
 
   return (
     <>
+      <GlobalStyle />
       <Starfield />
       <Nebula />
       <CustomCursor />
